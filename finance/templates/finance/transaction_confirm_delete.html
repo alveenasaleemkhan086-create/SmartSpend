@@ -1,0 +1,6 @@
+{% extends "finance/base.html" %}
+{% block title %}Delete transaction · SmartSpend 360{% endblock %}
+{% block breadcrumb %}Delete transaction{% endblock %}
+{% block content %}
+<div class="confirm-wrap"><section class="panel confirm-card"><span class="confirm-icon"><i data-lucide="trash-2"></i></span><h1>Delete this transaction?</h1><p>This will remove <strong>{{ item.title }}</strong> (₹{{ item.amount|floatformat:2 }}) from your records. This action cannot be undone.</p><form method="post">{% csrf_token %}<div class="form-actions centered"><a class="button button-secondary" href="{% url 'transaction_list' %}">Keep transaction</a><button class="button button-danger" type="submit">Yes, delete it</button></div></form></section></div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "finance/base.html" %}
+{% block title %}{{ page_title }} · SmartSpend 360{% endblock %}
+{% block breadcrumb %}{{ page_title }}{% endblock %}
+{% block content %}
+<div class="page-heading"><div><div class="eyebrow">KEEP YOUR RECORDS IN SYNC</div><h1>{{ page_title }}</h1><p>A few details now make your money picture clearer later.</p></div><a class="button button-secondary" href="{% url 'transaction_list' %}"><i data-lucide="arrow-left"></i> Back to transactions</a></div>
+<div class="form-layout"><section class="panel form-panel"><form method="post" enctype="multipart/form-data" class="form-stack">{% csrf_token %}{% if form.non_field_errors %}<div class="form-error">{{ form.non_field_errors }}</div>{% endif %}{% for field in form %}<div class="field-group"><label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}<span class="required">*</span>{% endif %}</label>{{ field }}{% if field.help_text %}<small class="help-text">{{ field.help_text }}</small>{% endif %}{% for error in field.errors %}<small class="field-error">{{ error }}</small>{% endfor %}</div>{% endfor %}<div class="form-actions"><a class="button button-secondary" href="{% url 'transaction_list' %}">Cancel</a><button class="button button-primary" type="submit"><i data-lucide="check"></i> Save transaction</button></div></form></section><aside class="form-tip"><span class="tip-icon"><i data-lucide="lightbulb"></i></span><h3>Make it meaningful</h3><p>A clear title and the right category make your future reports much more useful.</p><div class="tip-divider"></div><strong>Quick reminder</strong><span>Use income for money received and expense for money spent.</span></aside></div>
+{% endblock %}
+{% block scripts %}<script>
+(function(){
+ const kind=document.getElementById('id_kind');
+ const source=document.getElementById('id_income_source');
+ const recurring=document.getElementById('id_is_recurring');
+ function row(el){return el ? el.closest('.field-group') : null;}
+ function sync(){if(source&&row(source)) row(source).style.display=(!kind||kind.value==='income')?'':'none'; if(recurring&&row(recurring)) row(recurring).style.display=(!kind||kind.value==='expense')?'':'none';}
+ if(kind){kind.addEventListener('change',sync);sync();}
+})();
+</script>{% endblock %}

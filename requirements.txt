@@ -1,0 +1,4 @@
+Django>=5.2,<6.2
+python-dotenv>=1.0.1
+# Optional MySQL driver, only needed if you switch DB_ENGINE=mysql:
+# mysqlclient>=2.2.7
